@@ -47,7 +47,8 @@ class MoviesTableViewCell: UITableViewCell {
 
     private let arrowImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "arrow")
+        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.tintColor = .gray
         return imageView
     }()
 
@@ -98,9 +99,8 @@ class MoviesTableViewCell: UITableViewCell {
     }
     private func movieDateConstraints() {
         movieDate.snp.makeConstraints { make in
-            make.top.equalTo(movieTitle.snp.bottom).offset(16)
-            make.bottom.equalTo(16)
-            make.right.equalTo(-44)
+            make.top.equalTo(movieDescription.snp.bottom).offset(16)
+            make.left.equalToSuperview().offset(266)
         }
     }
     private func arrowImageConstraints(){

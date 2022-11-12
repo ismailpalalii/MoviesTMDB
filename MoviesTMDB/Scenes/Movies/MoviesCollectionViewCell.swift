@@ -60,15 +60,18 @@ final class MoviesCollectionViewCell: UICollectionViewCell {
 
     private func movieDescriptionConstraints() {
         movieDescription.snp.makeConstraints { make in
-            make.top.equalTo(movieTitle.snp.bottom).offset(8)
+            make.top.equalTo(128)
             make.right.equalTo(-16)
             make.left.equalTo(16)
+            make.bottom.equalTo(-16)
         }
     }
 
     private func movieTitleConstraints() {
         movieTitle.snp.makeConstraints { make in
-            make.top.equalTo(152)
+            make.top.equalTo(120)
+            make.width.equalTo(ScreenSize.width)
+            make.height.equalTo(24)
             make.right.equalTo(-16)
             make.left.equalTo(16)
         }

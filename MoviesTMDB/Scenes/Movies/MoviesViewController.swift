@@ -8,27 +8,9 @@
 import UIKit
 import SnapKit
 
-final class MoviesViewController: UIViewController, MoviesViewModelOutput {
-    func reloadList() {
-        self.tableView.reloadData()
-        self.collectionView.reloadData()
-    }
-
-    func showProductDetail(_ movie: MovieDetailModel) {
-        print("sdasdas")
-    }
+final class MoviesViewController: UIViewController {
 
     // MARK: - UI Components
-
-    private lazy var scrollView: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.showsHorizontalScrollIndicator = false
-        scroll.isPagingEnabled = true
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        scroll.contentMode = .scaleToFill
-        scroll.clipsToBounds = true
-        return scroll
-    }()
 
     private let collectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
@@ -54,6 +36,9 @@ final class MoviesViewController: UIViewController, MoviesViewModelOutput {
         page.currentPageIndicatorTintColor = UIColor.white
         return page
     }()
+
+    private lazy var scrollView = UIScrollView()
+    private lazy var contentView = UIView()
 
     // MARK: - Properties
     private let viewModel: MoviesViewModel
@@ -85,7 +70,8 @@ final class MoviesViewController: UIViewController, MoviesViewModelOutput {
     }
 
     private func addSubviews(){
-        //view.addSubview(scrollView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         view.addSubview(collectionView)
         view.addSubview(tableView)
         view.addSubview(pageController)
@@ -114,12 +100,7 @@ final class MoviesViewController: UIViewController, MoviesViewModelOutput {
             make.width.equalTo(375)
             make.height.equalTo(40)
         }
-//        tableView.snp.makeConstraints { make in
-//            make.top.equalTo(pageController.snp.bottom).offset(0)
-//            make.left.right.equalToSuperview()
-//            make.height.equalToSuperview().multipliedBy(ScreenSize.height * 0.68)
-//            make.width.equalTo(ScreenSize.width)
-//        }
+
 
         tableView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(256)
@@ -143,6 +124,10 @@ extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return ScreenSize.height * 0.16
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectItemAt(indexPath)
+    }
 }
 
 extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -159,4 +144,30 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell?.set(viewModel.datasourceNowplaying[indexPath.row])
             return cell ?? UICollectionViewCell()
         }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        viewModel.didSelectItemAt(indexPath)
+    }
+}
+
+// MARK: - MoviesViewModelOutput Output
+extension MoviesViewController: MoviesViewModelOutput {
+    func reloadList() {
+        self.tableView.reloadData()
+        self.collectionView.reloadData()
+    }
+
+    func showProductDetail(
+        _ movie: Movie
+    ) {
+        let viewModel = MoviesDetailViewModel(service: Services() as! ServiceProtocol)
+        let controller = MovieDetailViewController(viewModel: viewModel, movieID: movie.id)
+        navigationController?.pushViewController(
+            controller,
+            animated: true
+        )
+    }
 }

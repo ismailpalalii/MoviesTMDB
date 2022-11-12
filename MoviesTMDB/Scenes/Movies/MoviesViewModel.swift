@@ -11,7 +11,7 @@ import Foundation
 
 protocol MoviesViewModelOutput: AnyObject {
     func reloadList()
-    func showProductDetail(_ movie: MovieDetailModel)
+    func showProductDetail(_ movie: Movie)
 }
 
 final class MoviesViewModel {
@@ -55,9 +55,11 @@ extension MoviesViewModel {
     /// Select an item with IndexPath
     /// - Parameter indexPath: IndexPath of selected item
     func didSelectItemAt(
-        _ indexPath: IndexPath, movieID: Int
+        _ indexPath: IndexPath
     ) {
-//        let product = datasource[indexPath.row]
-//        output?.showProductDetail(product)
+        let upcoming = datasourceUpcoming[indexPath.row]
+        output?.showProductDetail(upcoming)
+        let nowplaying = datasourceNowplaying[indexPath.row]
+        output?.showProductDetail(nowplaying)
     }
 }
