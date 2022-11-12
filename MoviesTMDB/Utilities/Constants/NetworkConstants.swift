@@ -16,6 +16,7 @@ extension Constant {
             case UPCOMİNG = "upcoming"
             case NOWPLAYİNG = "now_playing"
             case IMAGEPATH = "https://image.tmdb.org/t/p/w500"
+            case IMDB = "https://www.imdb.com/title/"
 
             static func fetchUpComingMovies() -> String {
                 "\(BASEURL.rawValue)\(UPCOMİNG.rawValue)?api_key=\(APIKEY.rawValue)\(LANG.rawValue)"
@@ -31,6 +32,9 @@ extension Constant {
 
             static func getImage() -> String {
                 "\(IMAGEPATH.rawValue)"
+            }
+            static func getIMDB() -> String {
+                "\(IMDB.rawValue)"
             }
         }
     }

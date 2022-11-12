@@ -64,7 +64,7 @@ struct MovieDetailModel: Codable {
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
-        case imdbID
+        case imdbID = "imdb_id"
         case originalTitle = "original_title"
         case overview, popularity
         case posterPath = "poster_path"

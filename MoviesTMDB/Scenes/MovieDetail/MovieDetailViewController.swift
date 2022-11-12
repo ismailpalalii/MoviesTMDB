@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import SafariServices
 
 class MovieDetailViewController: UIViewController {
 
@@ -27,9 +28,11 @@ class MovieDetailViewController: UIViewController {
         return imageView
     }()
 
-    private var imdbImageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
+    private var imdbButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "imdb"), for: .normal)
+        button.addTarget(self, action: #selector(websiteButtonTapped(_:)), for: UIControl.Event.touchUpInside)
+        return button
     }()
 
     private var rateImageView: UIImageView = {
@@ -73,6 +76,7 @@ class MovieDetailViewController: UIViewController {
     // MARK: - Properties
     private let viewModel: MoviesDetailViewModel
     private let movieID: Int
+    private var imdb = ""
 
     // MARK: - Initialization
     init(
@@ -110,11 +114,19 @@ class MovieDetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
 
+    @objc private func websiteButtonTapped(_ sender: UIButton) {
+
+        guard let url = URL(string: "\(Constant.NetworkConstans.MovieServiceEndPoint.getIMDB())\(imdb)") else {
+            return
+        }
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true)
+                }
     private func addViews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(movieImageView)
-        contentView.addSubview(imdbImageView)
+        contentView.addSubview(imdbButton)
         contentView.addSubview(rateImageView)
         contentView.addSubview(movieDate)
         contentView.addSubview(movieTitleLabel)
@@ -143,7 +155,7 @@ class MovieDetailViewController: UIViewController {
         }
 
 
-               imdbImageView.snp.makeConstraints { make in
+               imdbButton.snp.makeConstraints { make in
                    make.top.equalTo(movieImageView.snp.bottom).offset(16)
                    make.left.equalTo(16)
                    make.height.equalTo(24)
@@ -151,7 +163,7 @@ class MovieDetailViewController: UIViewController {
                }
                 rateImageView.snp.makeConstraints { make in
                     make.top.equalTo(movieImageView.snp.bottom).offset(20)
-                    make.left.equalTo(imdbImageView.snp.right).offset(8)
+                    make.left.equalTo(imdbButton.snp.right).offset(8)
                     make.height.equalTo(16)
                     make.width.equalTo(16)
                 }
@@ -196,7 +208,6 @@ extension MovieDetailViewController {
             return
         }
         DispatchQueue.main.async {
-            self.imdbImageView.image = UIImage(named: "imdb")
             self.rateImageView.image = UIImage(named: "rate")
             self.movieImageView.kf.setImage(with:imageUrl )
             self.navigationItem.title = "\(String(describing: movie.title ?? "")) (\(Helper.shared.dateFormat(movie.releaseDate, format: "yyyy")))"
@@ -209,6 +220,7 @@ extension MovieDetailViewController {
                         .replacingOccurrences(of: "<br>", with: "")
                         .replacingOccurrences(of: "<br />", with: "")
             self.movieDescLabel.text = descriptionText
+            self.imdb = movie.imdbID ?? ""
         }
     }
 }
