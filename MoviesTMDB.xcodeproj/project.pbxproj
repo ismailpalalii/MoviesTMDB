@@ -13,6 +13,8 @@
 		0C99E973291FA0A5002A5DD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E971291FA0A5002A5DD2 /* Main.storyboard */; };
 		0C99E975291FA0A9002A5DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E974291FA0A9002A5DD2 /* Assets.xcassets */; };
 		0C99E978291FA0A9002A5DD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E976291FA0A9002A5DD2 /* LaunchScreen.storyboard */; };
+		0C99E980291FA45E002A5DD2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E97F291FA45E002A5DD2 /* .swiftlint.yml */; };
+		0C99E983291FA50C002A5DD2 /* SwiftLintFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 0C99E982291FA50C002A5DD2 /* SwiftLintFramework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,7 @@
 		0C99E974291FA0A9002A5DD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C99E977291FA0A9002A5DD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C99E979291FA0A9002A5DD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C99E97F291FA45E002A5DD2 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = .swiftlint.yml; path = MoviesTMDB/.swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C99E983291FA50C002A5DD2 /* SwiftLintFramework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +44,7 @@
 		0C99E95F291FA0A5002A5DD2 = {
 			isa = PBXGroup;
 			children = (
+				0C99E97F291FA45E002A5DD2 /* .swiftlint.yml */,
 				0C99E96A291FA0A5002A5DD2 /* MoviesTMDB */,
 				0C99E969291FA0A5002A5DD2 /* Products */,
 			);
@@ -74,6 +79,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0C99E97C291FA0A9002A5DD2 /* Build configuration list for PBXNativeTarget "MoviesTMDB" */;
 			buildPhases = (
+				0C99E984291FA52A002A5DD2 /* Run swiftlint */,
 				0C99E964291FA0A5002A5DD2 /* Sources */,
 				0C99E965291FA0A5002A5DD2 /* Frameworks */,
 				0C99E966291FA0A5002A5DD2 /* Resources */,
@@ -83,6 +89,9 @@
 			dependencies = (
 			);
 			name = MoviesTMDB;
+			packageProductDependencies = (
+				0C99E982291FA50C002A5DD2 /* SwiftLintFramework */,
+			);
 			productName = MoviesTMDB;
 			productReference = 0C99E968291FA0A5002A5DD2 /* MoviesTMDB.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +120,9 @@
 				Base,
 			);
 			mainGroup = 0C99E95F291FA0A5002A5DD2;
+			packageReferences = (
+				0C99E981291FA50C002A5DD2 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			productRefGroup = 0C99E969291FA0A5002A5DD2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,6 +137,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C99E980291FA45E002A5DD2 /* .swiftlint.yml in Resources */,
 				0C99E978291FA0A9002A5DD2 /* LaunchScreen.storyboard in Resources */,
 				0C99E975291FA0A9002A5DD2 /* Assets.xcassets in Resources */,
 				0C99E973291FA0A5002A5DD2 /* Main.storyboard in Resources */,
@@ -132,6 +145,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0C99E984291FA52A002A5DD2 /* Run swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run swiftlint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0C99E964291FA0A5002A5DD2 /* Sources */ = {
@@ -360,6 +394,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0C99E981291FA50C002A5DD2 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0C99E982291FA50C002A5DD2 /* SwiftLintFramework */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0C99E981291FA50C002A5DD2 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = SwiftLintFramework;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0C99E960291FA0A5002A5DD2 /* Project object */;
 }
