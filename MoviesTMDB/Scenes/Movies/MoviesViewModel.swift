@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+final class MoviesViewModel {
+
+    // MARK: - Property
+    private let service: ServiceProtocol
+    
+    // MARK: - Initialization
+    init(service: ServiceProtocol) {
+        self.service = service
+    }
+}
