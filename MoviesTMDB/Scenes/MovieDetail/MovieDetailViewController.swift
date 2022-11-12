@@ -125,14 +125,15 @@ class MovieDetailViewController: UIViewController {
     }
 
     private func setupUI(){
-        scrollView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalTo(0)
-        }
+        scrollView.snp.makeConstraints { (make) in
+                make.edges.equalTo(self.view)
+            }
 
-        contentView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalTo(0)
-            make.centerX.equalTo(view.snp.centerX)
-            make.width.equalTo(view.frame.width)
+        contentView.snp.makeConstraints { (make) in
+            make.top.bottom.equalTo(self.scrollView)
+            make.left.right.equalTo(self.view)
+            make.width.equalTo(self.scrollView)
+            make.height.equalTo(self.scrollView)
         }
 
         movieImageView.snp.makeConstraints { make in
