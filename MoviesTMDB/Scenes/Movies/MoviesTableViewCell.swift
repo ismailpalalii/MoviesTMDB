@@ -19,5 +19,7 @@ class MoviesTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    enum Identifier: String {
+        case path = "TableViewCell"
+    }
 }
