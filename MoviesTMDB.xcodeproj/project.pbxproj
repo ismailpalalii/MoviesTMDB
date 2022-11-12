@@ -12,6 +12,7 @@
 		0C99E975291FA0A9002A5DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E974291FA0A9002A5DD2 /* Assets.xcassets */; };
 		0C99E978291FA0A9002A5DD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E976291FA0A9002A5DD2 /* LaunchScreen.storyboard */; };
 		0C99E980291FA45E002A5DD2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E97F291FA45E002A5DD2 /* .swiftlint.yml */; };
+		0C99E9AD291FB085002A5DD2 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C99E9AC291FB085002A5DD2 /* Movie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		0C99E977291FA0A9002A5DD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C99E979291FA0A9002A5DD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C99E97F291FA45E002A5DD2 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = .swiftlint.yml; path = MoviesTMDB/.swiftlint.yml; sourceTree = "<group>"; };
+		0C99E9AC291FB085002A5DD2 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,8 @@
 		0C99E9A7291FAF04002A5DD2 /* DataProvider */ = {
 			isa = PBXGroup;
 			children = (
+				0C99E9AB291FB044002A5DD2 /* Request */,
+				0C99E9AA291FB01F002A5DD2 /* Entity */,
 			);
 			path = DataProvider;
 			sourceTree = "<group>";
@@ -110,6 +114,21 @@
 			children = (
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		0C99E9AA291FB01F002A5DD2 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				0C99E9AC291FB085002A5DD2 /* Movie.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		0C99E9AB291FB044002A5DD2 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +230,7 @@
 			files = (
 				0C99E96C291FA0A5002A5DD2 /* AppDelegate.swift in Sources */,
 				0C99E96E291FA0A5002A5DD2 /* SceneDelegate.swift in Sources */,
+				0C99E9AD291FB085002A5DD2 /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
