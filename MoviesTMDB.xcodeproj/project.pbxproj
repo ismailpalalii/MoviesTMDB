@@ -14,7 +14,6 @@
 		0C99E975291FA0A9002A5DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E974291FA0A9002A5DD2 /* Assets.xcassets */; };
 		0C99E978291FA0A9002A5DD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E976291FA0A9002A5DD2 /* LaunchScreen.storyboard */; };
 		0C99E980291FA45E002A5DD2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E97F291FA45E002A5DD2 /* .swiftlint.yml */; };
-		0C99E983291FA50C002A5DD2 /* SwiftLintFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 0C99E982291FA50C002A5DD2 /* SwiftLintFramework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +33,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C99E983291FA50C002A5DD2 /* SwiftLintFramework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +88,6 @@
 			);
 			name = MoviesTMDB;
 			packageProductDependencies = (
-				0C99E982291FA50C002A5DD2 /* SwiftLintFramework */,
 			);
 			productName = MoviesTMDB;
 			productReference = 0C99E968291FA0A5002A5DD2 /* MoviesTMDB.app */;
@@ -121,7 +118,6 @@
 			);
 			mainGroup = 0C99E95F291FA0A5002A5DD2;
 			packageReferences = (
-				0C99E981291FA50C002A5DD2 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 0C99E969291FA0A5002A5DD2 /* Products */;
 			projectDirPath = "";
@@ -394,25 +390,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		0C99E981291FA50C002A5DD2 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		0C99E982291FA50C002A5DD2 /* SwiftLintFramework */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0C99E981291FA50C002A5DD2 /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = SwiftLintFramework;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0C99E960291FA0A5002A5DD2 /* Project object */;
 }
