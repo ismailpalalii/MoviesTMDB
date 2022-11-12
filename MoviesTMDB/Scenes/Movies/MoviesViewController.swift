@@ -126,7 +126,7 @@ extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.didSelectItemAt(indexPath)
+        viewModel.didSelectItemAtTableview(indexPath)
     }
 }
 
@@ -149,7 +149,7 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        //viewModel.didSelectItemAt(indexPath)
+        viewModel.didSelectItemAtCollectionView(indexPath)
     }
 }
 

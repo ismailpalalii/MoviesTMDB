@@ -54,12 +54,17 @@ extension MoviesViewModel {
 
     /// Select an item with IndexPath
     /// - Parameter indexPath: IndexPath of selected item
-    func didSelectItemAt(
+    func didSelectItemAtTableview(
         _ indexPath: IndexPath
     ) {
         let upcoming = datasourceUpcoming[indexPath.row]
         output?.showProductDetail(upcoming)
-//        let nowplaying = datasourceNowplaying[indexPath.row]
-//        output?.showProductDetail(nowplaying)
+    }
+
+    func didSelectItemAtCollectionView(
+        _ indexPath: IndexPath
+    ) {
+        let nowplaying = datasourceNowplaying[indexPath.row]
+        output?.showProductDetail(nowplaying)
     }
 }
