@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0C0D4325291FB98500CBEE4C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0C0D4324291FB98500CBEE4C /* SnapKit */; };
+		0C0D4327291FBCB500CBEE4C /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0D4326291FBCB500CBEE4C /* ScreenSize.swift */; };
+		0C0D432A291FC4C100CBEE4C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0C0D4329291FC4C100CBEE4C /* Kingfisher */; };
+		0C0D432D291FC5CF00CBEE4C /* DateFormetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0D432C291FC5CF00CBEE4C /* DateFormetter.swift */; };
 		0C99E96C291FA0A5002A5DD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C99E96B291FA0A5002A5DD2 /* AppDelegate.swift */; };
 		0C99E96E291FA0A5002A5DD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C99E96D291FA0A5002A5DD2 /* SceneDelegate.swift */; };
 		0C99E975291FA0A9002A5DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C99E974291FA0A9002A5DD2 /* Assets.xcassets */; };
@@ -25,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C0D4326291FBCB500CBEE4C /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
+		0C0D432C291FC5CF00CBEE4C /* DateFormetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormetter.swift; sourceTree = "<group>"; };
 		0C99E968291FA0A5002A5DD2 /* MoviesTMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviesTMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C99E96B291FA0A5002A5DD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C99E96D291FA0A5002A5DD2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C0D432A291FC4C100CBEE4C /* Kingfisher in Frameworks */,
 				0C99E9B2291FB1B4002A5DD2 /* Alamofire in Frameworks */,
 				0C0D4325291FB98500CBEE4C /* SnapKit in Frameworks */,
 			);
@@ -55,6 +61,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C0D432B291FC53B00CBEE4C /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				0C0D432C291FC5CF00CBEE4C /* DateFormetter.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		0C99E95F291FA0A5002A5DD2 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +145,7 @@
 		0C99E9A9291FAF1C002A5DD2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				0C0D432B291FC53B00CBEE4C /* Helper */,
 				0C99E9B3291FB1BC002A5DD2 /* Constants */,
 			);
 			path = Utilities;
@@ -157,6 +172,7 @@
 			children = (
 				0C99E9B4291FB1F2002A5DD2 /* Constants.swift */,
 				0C99E9B6291FB20D002A5DD2 /* NetworkConstants.swift */,
+				0C0D4326291FBCB500CBEE4C /* ScreenSize.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -192,6 +208,7 @@
 			packageProductDependencies = (
 				0C99E9B1291FB1B4002A5DD2 /* Alamofire */,
 				0C0D4324291FB98500CBEE4C /* SnapKit */,
+				0C0D4329291FC4C100CBEE4C /* Kingfisher */,
 			);
 			productName = MoviesTMDB;
 			productReference = 0C99E968291FA0A5002A5DD2 /* MoviesTMDB.app */;
@@ -224,6 +241,7 @@
 			packageReferences = (
 				0C99E9B0291FB1B3002A5DD2 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				0C0D4323291FB98500CBEE4C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				0C0D4328291FC4C100CBEE4C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 0C99E969291FA0A5002A5DD2 /* Products */;
 			projectDirPath = "";
@@ -279,7 +297,9 @@
 				0C99E96C291FA0A5002A5DD2 /* AppDelegate.swift in Sources */,
 				0C99E9AF291FB175002A5DD2 /* Services.swift in Sources */,
 				0C99E96E291FA0A5002A5DD2 /* SceneDelegate.swift in Sources */,
+				0C0D4327291FBCB500CBEE4C /* ScreenSize.swift in Sources */,
 				0C99E9BA291FB3B2002A5DD2 /* MoviesViewController.swift in Sources */,
+				0C0D432D291FC5CF00CBEE4C /* DateFormetter.swift in Sources */,
 				0C99E9AD291FB085002A5DD2 /* Movie.swift in Sources */,
 				0C99E9BC291FB3D1002A5DD2 /* MoviesViewModel.swift in Sources */,
 				0C99E9C0291FB401002A5DD2 /* MoviesCollectionViewCell.swift in Sources */,
@@ -506,6 +526,14 @@
 				kind = branch;
 			};
 		};
+		0C0D4328291FC4C100CBEE4C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		0C99E9B0291FB1B3002A5DD2 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -521,6 +549,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0C0D4323291FB98500CBEE4C /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		0C0D4329291FC4C100CBEE4C /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0C0D4328291FC4C100CBEE4C /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		0C99E9B1291FB1B4002A5DD2 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

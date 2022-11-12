@@ -6,8 +6,16 @@
 //
 
 import UIKit
+import SnapKit
 
-final class MoviesViewController: UIViewController {
+final class MoviesViewController: UIViewController, MoviesViewModelOutput {
+    func reloadList() {
+        self.tableView.reloadData()
+    }
+
+    func showProductDetail(_ movie: MovieDetailModel) {
+        print("sdasdas")
+    }
 
     // MARK: - UI Components
 
@@ -16,9 +24,7 @@ final class MoviesViewController: UIViewController {
         scroll.showsHorizontalScrollIndicator = false
         scroll.isPagingEnabled = true
         scroll.translatesAutoresizingMaskIntoConstraints = false
-        scroll.contentMode = .scaleAspectFit
-        scroll.backgroundColor = .black
-        scroll.layer.cornerRadius = 15
+        scroll.contentMode = .scaleToFill
         scroll.clipsToBounds = true
         return scroll
     }()
@@ -40,10 +46,10 @@ final class MoviesViewController: UIViewController {
     }()
     private lazy var pageController: UIPageControl = {
         let page = UIPageControl()
-        page.numberOfPages = 3
+        page.numberOfPages = 5
         page.currentPage = 0
         page.translatesAutoresizingMaskIntoConstraints = false
-        page.pageIndicatorTintColor = UIColor.black
+        page.pageIndicatorTintColor = UIColor.blue
         page.currentPageIndicatorTintColor = UIColor.systemRed
         return page
     }()
@@ -65,6 +71,73 @@ final class MoviesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        viewModel.output = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        viewModel.getUpcomingList()
+        viewModel.datasourceNowplaying
+        addSubviews()
+        setupDelegates()
+        setupUI()
+    }
+
+    private func addSubviews(){
+        //view.addSubview(scrollView)
+        //scrollView.addSubview(collectionView)
+        view.addSubview(tableView)
+        //scrollView.addSubview(pageController)
+        view.backgroundColor = .white
+    }
+
+    private func setupDelegates() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+
+    private func setupUI() {
+//        scrollView.snp.makeConstraints { make in
+//            make.top.equalTo(view.safeAreaLayoutGuide)
+//            make.left.right.bottom.equalToSuperview()
+//        }
+//
+//        collectionView.snp.makeConstraints { make in
+//            make.top.equalToSuperview()
+//            make.left.right.equalToSuperview()
+//            make.height.equalToSuperview().multipliedBy(ScreenSize.height * 0.26)
+//            make.width.equalTo(ScreenSize.width)
+//        }
+//        pageController.snp.makeConstraints { make in
+//            make.top.equalTo(collectionView.snp.bottom).offset(-2)
+//            make.left.right.equalToSuperview()
+//            make.height.equalToSuperview().multipliedBy(ScreenSize.height * 0.05)
+//            make.width.equalTo(ScreenSize.width)
+//        }
+//        tableView.snp.makeConstraints { make in
+//            make.top.equalTo(pageController.snp.bottom).offset(0)
+//            make.left.right.equalToSuperview()
+//            make.height.equalToSuperview().multipliedBy(ScreenSize.height * 0.68)
+//            make.width.equalTo(ScreenSize.width)
+//        }
+
+        tableView.snp.makeConstraints { make in
+            make.left.top.right.bottom.equalToSuperview()
+        }
+    }
+}
+
+extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.datasourceUpcoming.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:MoviesTableViewCell.Identifier.path.rawValue, for: indexPath) as? MoviesTableViewCell
+        cell?.set(viewModel.datasourceUpcoming[indexPath.row])
+        return cell ?? UITableViewCell()
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return ScreenSize.height * 0.16
     }
 }
