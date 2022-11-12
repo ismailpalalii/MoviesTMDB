@@ -39,6 +39,7 @@ final class MoviesViewController: UIViewController {
 
     private lazy var scrollView = UIScrollView()
     private lazy var contentView = UIView()
+    private lazy var activityIndicator = UIActivityIndicatorView()
 
     // MARK: - Properties
     private let viewModel: MoviesViewModel
@@ -58,16 +59,11 @@ final class MoviesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.output = self
-        tableView.delegate = self
-        tableView.dataSource = self
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        viewModel.getUpcomingList()
-        viewModel.getNowPlayingList()
+        fetchList()
         addSubviews()
         setupDelegates()
         setupUI()
+        configureRefreshControl()
     }
 
     private func addSubviews(){
@@ -76,14 +72,39 @@ final class MoviesViewController: UIViewController {
         contentView.addSubview(collectionView)
         contentView.addSubview(tableView)
         contentView.addSubview(pageController)
+        contentView.addSubview(activityIndicator)
         view.backgroundColor = .white
     }
 
     private func setupDelegates() {
+        viewModel.output = self
         tableView.delegate = self
         tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
 
+    private func fetchList() {
+        activityIndicator.startAnimating()
+        viewModel.getUpcomingList()
+        viewModel.getNowPlayingList()
+    }
+
+    func configureRefreshControl () {
+       scrollView.refreshControl = UIRefreshControl()
+        scrollView.refreshControl?.addTarget(self, action:
+                                          #selector(handleRefreshControl),
+                                          for: .valueChanged)
+    }
+
+    @objc func handleRefreshControl() {
+       fetchList()
+        self.activityIndicator.startAnimating()
+       DispatchQueue.main.async {
+          self.scrollView.refreshControl?.endRefreshing()
+           self.activityIndicator.stopAnimating()
+       }
+    }
     private func setupUI() {
         scrollView.snp.makeConstraints { (make) in
                 make.edges.equalTo(self.view)
@@ -104,6 +125,11 @@ final class MoviesViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.left.right.equalToSuperview()
+        }
+
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.width.height.equalTo(200)
         }
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -174,6 +200,7 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
 // MARK: - MoviesViewModelOutput Output
 extension MoviesViewController: MoviesViewModelOutput {
     func reloadList() {
+        activityIndicator.stopAnimating()
         self.tableView.reloadData()
         self.collectionView.reloadData()
     }
