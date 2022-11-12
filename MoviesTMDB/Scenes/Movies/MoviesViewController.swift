@@ -11,6 +11,7 @@ import SnapKit
 final class MoviesViewController: UIViewController, MoviesViewModelOutput {
     func reloadList() {
         self.tableView.reloadData()
+        self.collectionView.reloadData()
     }
 
     func showProductDetail(_ movie: MovieDetailModel) {
@@ -28,15 +29,15 @@ final class MoviesViewController: UIViewController, MoviesViewModelOutput {
         scroll.clipsToBounds = true
         return scroll
     }()
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(MoviesCollectionViewCell.self, forCellWithReuseIdentifier: MoviesCollectionViewCell.Identifier.path.rawValue)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        return collectionView
-    }()
+
+    private let collectionView: UICollectionView = {
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .horizontal
+            let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            cv.translatesAutoresizingMaskIntoConstraints = false
+            cv.register(MoviesCollectionViewCell.self, forCellWithReuseIdentifier: MoviesCollectionViewCell.Identifier.path.rawValue)
+            return cv
+        }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -49,8 +50,8 @@ final class MoviesViewController: UIViewController, MoviesViewModelOutput {
         page.numberOfPages = 5
         page.currentPage = 0
         page.translatesAutoresizingMaskIntoConstraints = false
-        page.pageIndicatorTintColor = UIColor.blue
-        page.currentPageIndicatorTintColor = UIColor.systemRed
+        page.pageIndicatorTintColor = UIColor.gray
+        page.currentPageIndicatorTintColor = UIColor.white
         return page
     }()
 
@@ -74,8 +75,10 @@ final class MoviesViewController: UIViewController, MoviesViewModelOutput {
         viewModel.output = self
         tableView.delegate = self
         tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         viewModel.getUpcomingList()
-        viewModel.datasourceNowplaying
+        viewModel.getNowPlayingList()
         addSubviews()
         setupDelegates()
         setupUI()
@@ -83,9 +86,9 @@ final class MoviesViewController: UIViewController, MoviesViewModelOutput {
 
     private func addSubviews(){
         //view.addSubview(scrollView)
-        //scrollView.addSubview(collectionView)
+        view.addSubview(collectionView)
         view.addSubview(tableView)
-        //scrollView.addSubview(pageController)
+        view.addSubview(pageController)
         view.backgroundColor = .white
     }
 
@@ -100,18 +103,17 @@ final class MoviesViewController: UIViewController, MoviesViewModelOutput {
 //            make.left.right.bottom.equalToSuperview()
 //        }
 //
-//        collectionView.snp.makeConstraints { make in
-//            make.top.equalToSuperview()
-//            make.left.right.equalToSuperview()
-//            make.height.equalToSuperview().multipliedBy(ScreenSize.height * 0.26)
-//            make.width.equalTo(ScreenSize.width)
-//        }
-//        pageController.snp.makeConstraints { make in
-//            make.top.equalTo(collectionView.snp.bottom).offset(-2)
-//            make.left.right.equalToSuperview()
-//            make.height.equalToSuperview().multipliedBy(ScreenSize.height * 0.05)
-//            make.width.equalTo(ScreenSize.width)
-//        }
+        collectionView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.height.equalTo(250)
+        }
+        pageController.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(216)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(375)
+            make.height.equalTo(40)
+        }
 //        tableView.snp.makeConstraints { make in
 //            make.top.equalTo(pageController.snp.bottom).offset(0)
 //            make.left.right.equalToSuperview()
@@ -120,7 +122,8 @@ final class MoviesViewController: UIViewController, MoviesViewModelOutput {
 //        }
 
         tableView.snp.makeConstraints { make in
-            make.left.top.right.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(256)
+            make.left.right.bottom.equalToSuperview()
         }
     }
 }
@@ -140,4 +143,20 @@ extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return ScreenSize.height * 0.16
     }
+}
+
+extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        }
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return viewModel.datasourceNowplaying.count
+        }
+
+        // swiftlint:disable force_cast
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesCollectionViewCell.Identifier.path.rawValue, for: indexPath) as? MoviesCollectionViewCell
+            cell?.set(viewModel.datasourceNowplaying[indexPath.row])
+            return cell ?? UICollectionViewCell()
+        }
 }
