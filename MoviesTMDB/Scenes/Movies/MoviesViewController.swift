@@ -12,38 +12,16 @@ final class MoviesViewController: UIViewController {
 
     // MARK: - UI Components
 
-    private let collectionView: UICollectionView = {
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
-            let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            cv.translatesAutoresizingMaskIntoConstraints = false
-            cv.register(MoviesCollectionViewCell.self, forCellWithReuseIdentifier: MoviesCollectionViewCell.Identifier.path.rawValue)
-            return cv
-        }()
-
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: MoviesTableViewCell.Identifier.path.rawValue)
-        tableView.showsVerticalScrollIndicator = false
-        return tableView
-    }()
-    private lazy var pageController: UIPageControl = {
-        let page = UIPageControl()
-        page.numberOfPages = 5
-        page.currentPage = 0
-        page.translatesAutoresizingMaskIntoConstraints = false
-        page.pageIndicatorTintColor = UIColor.gray
-        page.currentPageIndicatorTintColor = UIColor.white
-        return page
-    }()
-
-    private lazy var scrollView = UIScrollView()
-    private lazy var contentView = UIView()
-    private lazy var activityIndicator = UIActivityIndicatorView()
+    lazy var collectionView = UICollectionView.customCollectionView()
+    lazy var tableView = UITableView.customTableView()
+    lazy var pageController = UIPageControl.customPageController()
+    lazy var scrollView = UIScrollView()
+    lazy var contentView = UIView()
+    lazy var activityIndicator = UIActivityIndicatorView()
 
     // MARK: - Properties
     private let viewModel: MoviesViewModel
-    private var currentPage:Int = 0
+    private var currentPage = 0
 
     // MARK: - Initialization
     init(_ viewModel: MoviesViewModel) {
@@ -66,37 +44,12 @@ final class MoviesViewController: UIViewController {
         configureRefreshControl()
     }
 
-    private func addSubviews(){
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(collectionView)
-        contentView.addSubview(tableView)
-        contentView.addSubview(pageController)
-        contentView.addSubview(activityIndicator)
-        view.backgroundColor = .white
-    }
-
-    private func setupDelegates() {
-        viewModel.output = self
-        tableView.delegate = self
-        tableView.dataSource = self
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
-
     private func fetchList() {
+        viewModel.output = self
         activityIndicator.startAnimating()
         viewModel.getUpcomingList()
         viewModel.getNowPlayingList()
     }
-
-    func configureRefreshControl () {
-       scrollView.refreshControl = UIRefreshControl()
-        scrollView.refreshControl?.addTarget(self, action:
-                                          #selector(handleRefreshControl),
-                                          for: .valueChanged)
-    }
-
     @objc func handleRefreshControl() {
        fetchList()
         self.activityIndicator.startAnimating()
@@ -104,48 +57,6 @@ final class MoviesViewController: UIViewController {
           self.scrollView.refreshControl?.endRefreshing()
            self.activityIndicator.stopAnimating()
        }
-    }
-    private func setupUI() {
-        scrollView.snp.makeConstraints { (make) in
-                make.edges.equalTo(self.view)
-            }
-
-        contentView.snp.makeConstraints { (make) in
-            make.top.bottom.equalTo(self.scrollView)
-            make.left.right.equalTo(self.view)
-            make.width.equalTo(self.scrollView)
-            make.height.equalTo(self.scrollView)
-        }
-
-        scrollView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.right.bottom.equalToSuperview()
-        }
-
-        contentView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.left.right.equalToSuperview()
-        }
-
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-            make.width.height.equalTo(200)
-        }
-        collectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.right.equalToSuperview()
-            make.height.equalTo(250)
-        }
-        pageController.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(216)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(375)
-            make.height.equalTo(40)
-        }
-        tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(256)
-            make.left.right.bottom.equalToSuperview()
-        }
     }
 }
 
