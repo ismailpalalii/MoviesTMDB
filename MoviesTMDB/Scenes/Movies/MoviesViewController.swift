@@ -42,6 +42,7 @@ final class MoviesViewController: UIViewController {
 
     // MARK: - Properties
     private let viewModel: MoviesViewModel
+    private var currentPage:Int = 0
 
     // MARK: - Initialization
     init(_ viewModel: MoviesViewModel) {
@@ -72,9 +73,9 @@ final class MoviesViewController: UIViewController {
     private func addSubviews(){
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        view.addSubview(collectionView)
-        view.addSubview(tableView)
-        view.addSubview(pageController)
+        contentView.addSubview(collectionView)
+        contentView.addSubview(tableView)
+        contentView.addSubview(pageController)
         view.backgroundColor = .white
     }
 
@@ -84,11 +85,26 @@ final class MoviesViewController: UIViewController {
     }
 
     private func setupUI() {
-//        scrollView.snp.makeConstraints { make in
-//            make.top.equalTo(view.safeAreaLayoutGuide)
-//            make.left.right.bottom.equalToSuperview()
-//        }
-//
+        scrollView.snp.makeConstraints { (make) in
+                make.edges.equalTo(self.view)
+            }
+
+        contentView.snp.makeConstraints { (make) in
+            make.top.bottom.equalTo(self.scrollView)
+            make.left.right.equalTo(self.view)
+            make.width.equalTo(self.scrollView)
+            make.height.equalTo(self.scrollView)
+        }
+
+        scrollView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.right.bottom.equalToSuperview()
+        }
+
+        contentView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
+        }
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.right.equalToSuperview()
@@ -100,8 +116,6 @@ final class MoviesViewController: UIViewController {
             make.width.equalTo(375)
             make.height.equalTo(40)
         }
-
-
         tableView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(256)
             make.left.right.bottom.equalToSuperview()
@@ -150,6 +164,10 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
         didSelectItemAt indexPath: IndexPath
     ) {
         viewModel.didSelectItemAtCollectionView(indexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        pageController.currentPage = indexPath.row
     }
 }
 

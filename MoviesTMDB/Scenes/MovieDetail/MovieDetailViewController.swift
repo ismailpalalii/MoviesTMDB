@@ -174,8 +174,8 @@ class MovieDetailViewController: UIViewController {
         movieRate.snp.makeConstraints { make in
             make.top.equalTo(movieImageView.snp.bottom).offset(19)
             make.left.equalToSuperview().offset(93)
-            make.height.equalTo(20)
-            make.width.equalTo(50)
+            make.height.equalTo(19)
+            make.width.equalTo(40)
         }
     }
 }
