@@ -59,7 +59,7 @@ extension MoviesViewModel {
     ) {
         let upcoming = datasourceUpcoming[indexPath.row]
         output?.showProductDetail(upcoming)
-        let nowplaying = datasourceNowplaying[indexPath.row]
-        output?.showProductDetail(nowplaying)
+//        let nowplaying = datasourceNowplaying[indexPath.row]
+//        output?.showProductDetail(nowplaying)
     }
 }

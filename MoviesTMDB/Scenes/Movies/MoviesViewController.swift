@@ -149,7 +149,7 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        viewModel.didSelectItemAt(indexPath)
+        //viewModel.didSelectItemAt(indexPath)
     }
 }
 

@@ -6,10 +6,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MovieDetailViewController: UIViewController {
 
-    // MARK: - UI Components
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,69 +22,27 @@ class MovieDetailViewController: UIViewController {
         return view
     }()
 
-    private var navigationTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "SFProText-Bold", size: 15)
-        label.textColor = .black
-        label.numberOfLines = 0
-        return label
-    }()
-
     private var movieImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
 
-    private var imdbIcon: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "imdb-logo"))
+    private var imdbImageView: UIImageView = {
+        let imageView = UIImageView()
         return imageView
     }()
 
     private var rateImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "rate-icon"))
+        let imageView = UIImageView()
         return imageView
     }()
 
-    private var horizontalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 0
-        return stackView
-    }()
-
-    private var pointLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "SFProText-Semibold", size: 13)
-        label.textColor = .black
-        return label
-    }()
-
-    private let pointTenLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "SFProText-Semibold", size: 13)
-        label.textColor = .darkGray
-        label.text = "/10"
-        return label
-    }()
-
-    private let circleBox: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "imdb-color")
-        return view
-    }()
 
     private var movieDate: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "SFProText-Semibold", size: 13)
         label.textColor = .black
         return label
-    }()
-
-    private let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 16
-        return stackView
     }()
 
     private var movieTitleLabel: UILabel = {
@@ -95,15 +53,23 @@ class MovieDetailViewController: UIViewController {
         return label
     }()
 
-    private var descriptionLabel: UILabel = {
+    private var movieDescLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "SFProText-Regular", size: 15)
+        label.font = UIFont(name: "SFProDisplay-Bold", size: 20)
         label.textColor = .black
         label.numberOfLines = 0
         return label
     }()
 
+    private var movieRate: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "SFProDisplay-Bold", size: 13)
+        label.textColor = .black
+        label.numberOfLines = 0
+        return label
+    }()
 
+    
     // MARK: - Properties
     private let viewModel: MoviesDetailViewModel
     private let movieID: Int
@@ -125,111 +91,123 @@ class MovieDetailViewController: UIViewController {
       }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        viewConfigure()
+        addViews()
+        setupUI()
+        viewModel.output = self
+        viewModel.getProductDetail(movieID)
+        view.backgroundColor = .white
+        backButton()
     }
 
-    private func viewConfigure(){
-        scrollViewConfigure()
-        contentViewConfigure()
-        navigationTitleConfigure()
-        movieImageViewConfigure()
-        imdbIconConfigure()
-        rateImageViewConfigure()
-        horizontalStackViewConfigure()
-        circleBoxConfigure()
-        movieDateConfigure()
-        verticalStackViewConfigure()
+    private func backButton() {
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
+            let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(goBack))
+        backButton.tintColor = .black
+        navigationItem.leftBarButtonItem = backButton
+
+    }
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
     }
 
-    private func scrollViewConfigure() {
+    private func addViews() {
         view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(movieImageView)
+        contentView.addSubview(imdbImageView)
+        contentView.addSubview(rateImageView)
+        contentView.addSubview(movieDate)
+        contentView.addSubview(movieTitleLabel)
+        contentView.addSubview(movieDescLabel)
+        contentView.addSubview(movieRate)
+        contentView.backgroundColor = .white
         scrollView.backgroundColor = .white
+    }
+
+    private func setupUI(){
         scrollView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalTo(0)
         }
-    }
 
-    private func contentViewConfigure(){
-        scrollView.addSubview(contentView)
-        contentView.backgroundColor = .white
         contentView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalTo(0)
             make.centerX.equalTo(view.snp.centerX)
             make.width.equalTo(view.frame.width)
         }
-    }
 
-    private func navigationTitleConfigure() {
-        contentView.addSubview(navigationTitle)
-        navigationTitle.snp.makeConstraints { make in
-            make.topMargin.equalTo(16)
-            make.centerX.equalTo(contentView.snp.centerX)
-        }
-    }
-
-    private func movieImageViewConfigure(){
-        contentView.addSubview(movieImageView)
         movieImageView.snp.makeConstraints { make in
-            make.top.equalTo(navigationTitle.snp.bottom).offset(8)
+            make.top.equalToSuperview().offset(8)
             make.left.right.equalTo(0)
             make.height.equalTo(256)
         }
-    }
 
-    private func imdbIconConfigure(){
-        contentView.addSubview(imdbIcon)
-        imdbIcon.snp.makeConstraints { make in
-            make.top.equalTo(movieImageView.snp.bottom).offset(16)
-            make.left.equalTo(16)
-        }
-    }
 
-    private func rateImageViewConfigure(){
-        contentView.addSubview(rateImageView)
-        rateImageView.snp.makeConstraints { make in
-            make.top.equalTo(movieImageView.snp.bottom).offset(20)
-            make.left.equalTo(imdbIcon.snp.right).offset(8)
-        }
-    }
+               imdbImageView.snp.makeConstraints { make in
+                   make.top.equalTo(movieImageView.snp.bottom).offset(16)
+                   make.left.equalTo(16)
+                   make.height.equalTo(24)
+                   make.height.equalTo(49)
+               }
+                rateImageView.snp.makeConstraints { make in
+                    make.top.equalTo(movieImageView.snp.bottom).offset(20)
+                    make.left.equalTo(imdbImageView.snp.right).offset(8)
+                    make.height.equalTo(16)
+                    make.width.equalTo(16)
+                }
 
-    private func horizontalStackViewConfigure(){
-        contentView.addSubview(horizontalStackView)
-        horizontalStackView.addArrangedSubview(pointLabel)
-        horizontalStackView.addArrangedSubview(pointTenLabel)
-        horizontalStackView.snp.makeConstraints { make in
-            make.top.equalTo(movieImageView.snp.bottom).offset(19)
-            make.left.equalTo(rateImageView.snp.right).offset(4)
-        }
-    }
-
-    private func circleBoxConfigure(){
-        contentView.addSubview(circleBox)
-        circleBox.snp.makeConstraints { make in
-            make.top.equalTo(movieImageView.snp.bottom).offset(26)
-            make.left.equalTo(horizontalStackView.snp.right).offset(8)
-            make.width.height.equalTo(4)
-        }
-        circleBox.layer.cornerRadius = 2
-    }
-
-    private func movieDateConfigure(){
-        contentView.addSubview(movieDate)
         movieDate.snp.makeConstraints { make in
             make.top.equalTo(movieImageView.snp.bottom).offset(19)
-            make.left.equalTo(circleBox.snp.right).offset(8)
+            make.centerX.equalToSuperview()
+        }
+
+        movieTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(movieImageView.snp.bottom).offset(56)
+            make.left.equalToSuperview().offset(16)
+        }
+
+        movieDescLabel.snp.makeConstraints { make in
+            make.top.equalTo(movieTitleLabel.snp.bottom).offset(16)
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+        }
+
+        movieRate.snp.makeConstraints { make in
+            make.top.equalTo(movieImageView.snp.bottom).offset(19)
+            make.left.equalToSuperview().offset(93)
+            make.height.equalTo(20)
+            make.width.equalTo(50)
         }
     }
+}
 
-    private func verticalStackViewConfigure(){
-        contentView.addSubview(verticalStackView)
-        verticalStackView.addArrangedSubview(movieTitleLabel)
-        verticalStackView.addArrangedSubview(descriptionLabel)
-        verticalStackView.snp.makeConstraints { make in
-            make.top.equalTo(imdbIcon.snp.bottom).offset(16)
-            make.left.equalTo(16)
-            make.right.equalTo(-16)
-            make.bottom.equalTo(0)
+extension MovieDetailViewController: MoviesDetailViewModelOutput {
+    func displayProductDetail(_ movie: MovieDetailModel) {
+        setDetail(movie)
+    }
+}
+
+extension MovieDetailViewController {
+    func setDetail(_ movie: MovieDetailModel) {
+        guard let posterPath = movie.posterPath else {
+            return
+        }
+        guard let imageUrl = URL(string: "\(Constant.NetworkConstans.MovieServiceEndPoint.getImage())\(posterPath)") else {
+            return
+        }
+        DispatchQueue.main.async {
+            self.imdbImageView.image = UIImage(named: "imdb")
+            self.rateImageView.image = UIImage(named: "rate")
+            self.movieImageView.kf.setImage(with:imageUrl )
+            self.navigationItem.title = "\(String(describing: movie.title ?? "")) (\(Helper.shared.dateFormat(movie.releaseDate, format: "yyyy")))"
+            self.movieRate.text = "\(String(format: "%.1f", Double(movie.voteAverage ?? 0)))/10"
+            self.movieDate.text = Helper.shared.dateFormat(movie.releaseDate, format: "dd.MM.yyyy")
+            self.movieTitleLabel.text = "\(String(describing: movie.title ?? "")) (\(Helper.shared.dateFormat(movie.releaseDate, format: "yyyy")))"
+            let descriptionText = movie.overview?
+                        .replacingOccurrences(of: "<p>", with: "")
+                        .replacingOccurrences(of: "</p>", with: "")
+                        .replacingOccurrences(of: "<br>", with: "")
+                        .replacingOccurrences(of: "<br />", with: "")
+            self.movieDescLabel.text = descriptionText
         }
     }
 }

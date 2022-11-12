@@ -47,35 +47,31 @@ struct Movie: Codable {
 
 // MARK: - MovieDetailModel
 struct MovieDetailModel: Codable {
-
-    let adult: Bool
-    let backdropPath: String
-    let budget: Int
-    let homepage: String
-    let id: Int
-    let imdbID, originalLanguage, originalTitle, overview: String
-    let popularity: Double
-    let posterPath: String
-    let releaseDate: String
-    let revenue, runtime: Int
-    let status, tagline, title: String
-    let video: Bool
-    let voteAverage: Double
-    let voteCount: Int
+    var adult: Bool?
+    var backdropPath: String?
+    var homepage: String?
+    var id: Int?
+    var imdbID, originalTitle, overview: String?
+    var popularity: Double?
+    var posterPath: String?
+    var releaseDate: String?
+    var revenue, runtime: Int?
+    var status, tagline, title: String?
+    var video: Bool?
+    var voteAverage: Double?
+    var voteCount: Int?
 
     enum CodingKeys: String, CodingKey {
         case adult
-        case backdropPath
-        case budget, homepage, id
+        case backdropPath = "backdrop_path"
         case imdbID
-        case originalLanguage
-        case originalTitle
+        case originalTitle = "original_title"
         case overview, popularity
-        case posterPath
-        case releaseDate
-        case revenue, runtime
-        case status, tagline, title, video
-        case voteAverage
-        case voteCount
+        case posterPath = "poster_path"
+        case releaseDate = "release_date"
+        case title, video
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
     }
 }
+

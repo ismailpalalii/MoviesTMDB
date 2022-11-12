@@ -57,6 +57,7 @@ class MoviesTableViewCell: UITableViewCell {
         viewConfigure()
         configureConstraints()
     }
+    
 
     private func viewConfigure(){
         contentView.backgroundColor = .white
