@@ -143,7 +143,7 @@ extension MovieDetailViewController {
 
         movieDate.snp.makeConstraints { make in
             make.top.equalTo(movieImageView.snp.bottom).offset(19)
-            make.centerX.equalToSuperview()
+            make.left.equalTo(movieRate.snp.right).offset(16)
         }
 
         movieTitleLabel.snp.makeConstraints { make in

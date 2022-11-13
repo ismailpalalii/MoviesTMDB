@@ -5,13 +5,19 @@
 //  Created by İsmail Palalı on 12.11.2022.
 //
 
+
+//
+//  MoviesViewController.swift
+//  MoviesTMDB
+//
+//  Created by İsmail Palalı on 12.11.2022.
+//
 import UIKit
 import SnapKit
 
 final class MoviesViewController: UIViewController {
 
     // MARK: - UI Components
-
     lazy var collectionView = UICollectionView.customCollectionView()
     lazy var tableView = UITableView.customTableView()
     lazy var pageController = UIPageControl.customPageController()
@@ -37,7 +43,6 @@ final class MoviesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageController.isHidden = false
         fetchList()
         addSubviews()
         setupDelegates()
@@ -46,7 +51,6 @@ final class MoviesViewController: UIViewController {
     }
 
     private func fetchList() {
-        pageController.isHidden = true
         viewModel.output = self
         activityIndicator.startAnimating()
         viewModel.getUpcomingList()
@@ -94,7 +98,7 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
         // swiftlint:disable force_cast
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesCollectionViewCell.Identifier.path.rawValue, for: indexPath) as? MoviesCollectionViewCell
-            cell?.setCollectionCell(viewModel.datasourceUpcoming[indexPath.row])
+            cell?.set(viewModel.datasourceNowplaying[indexPath.row])
             return cell ?? UICollectionViewCell()
         }
 
