@@ -37,6 +37,7 @@ final class MoviesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        pageController.isHidden = false
         fetchList()
         addSubviews()
         setupDelegates()
@@ -45,6 +46,7 @@ final class MoviesViewController: UIViewController {
     }
 
     private func fetchList() {
+        pageController.isHidden = true
         viewModel.output = self
         activityIndicator.startAnimating()
         viewModel.getUpcomingList()
@@ -92,7 +94,7 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
         // swiftlint:disable force_cast
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesCollectionViewCell.Identifier.path.rawValue, for: indexPath) as? MoviesCollectionViewCell
-            cell?.set(viewModel.datasourceNowplaying[indexPath.row])
+            cell?.setCollectionCell(viewModel.datasourceUpcoming[indexPath.row])
             return cell ?? UICollectionViewCell()
         }
 

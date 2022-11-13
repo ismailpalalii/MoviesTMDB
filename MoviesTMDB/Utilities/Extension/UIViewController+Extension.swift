@@ -56,17 +56,19 @@ extension MoviesViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.right.equalToSuperview()
-            make.height.equalTo(250)
+            make.height.equalToSuperview().multipliedBy(0.32)
         }
         pageController.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(216)
+            //make.top.equalToSuperview().offset(216)
             make.centerX.equalToSuperview()
-            make.width.equalTo(375)
-            make.height.equalTo(40)
+            make.centerY.equalToSuperview().multipliedBy(0.55)
+            make.width.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.05)
         }
         tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(256)
+            make.top.equalTo(pageController.snp.bottom)
             make.left.right.bottom.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.68)
         }
     }
 
