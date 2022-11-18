@@ -93,7 +93,6 @@ Project Link:
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-* [mobillium/iOS-Guidelines](https://github.com/mobillium/iOS-Guidelines)
 * [MVVM Design Pattern by Ray Wenderlich](https://www.raywenderlich.com/34-design-patterns-by-tutorials-mvvm)
 * [iOS Academy on Youtube](https://www.youtube.com/c/iOSAcademy)
 * [Hacking With Swift](https://www.hackingwithswift.com)
