@@ -35,39 +35,7 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
-## General Requirements:
-- App should be coded with Swift Programming Language
-- At least one 3rd party library should be implemented with CocoaPods.
-- All screens should be pixel perfect design.
-- App should be fully functional.
-- Clean architectural design.
-- Codable
-- Network Layer
 
-## General Optionals
-- Git & Proper Gitflow Usage & gitignore Bonuses
-- Clean code style.
-- Abstracting the 3rd party libraries.
-- MVVM Architecture
-- High Order Function usage
-
-## Bonuses
-- Clean code style.
-- Abstracting the 3rd party libraries.
-- MVVM Architecture
-- High Order Function usage
-
-## Added Bonus Features
-- Splash Screen
-- Loading Indicator
-- Using mobillium/iOS-Guidelines swiftlint file.
-- Using mobillium/iOS-Guidelines .gitignore file.
-- Using mobillium/iOS-Guidelines git chart - git flow.
-- Using mobillium/iOS-Guidelines proje folder.
-
-   ```sh
-   https://github.com/mobillium/iOS-Guidelines
-   ```
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
